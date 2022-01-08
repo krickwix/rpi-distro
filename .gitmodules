@@ -1,0 +1,3 @@
+[submodule "meta-greatbear"]
+	path = meta-greatbear
+	url = https://github.com/krickwix/meta-greatbear.git
