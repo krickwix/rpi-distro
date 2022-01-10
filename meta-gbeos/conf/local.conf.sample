@@ -289,3 +289,7 @@ IMAGE_INSTALL_append = "linux-firmware kernel-modules wpa-supplicant bash parted
 IMAGE_INSTALL_append += "python3-ansible python3-ansible-core python3-cffi python3-cryptography python3-jinja2 python3-markupsafe python3-packaging python3-pycparser python3-pyparsing python3-pyyaml python3-resolvelib"
 
 CMDLINE_ROOTFS ?= "root=/dev/mmcblk0p2 rootfstype=ext4 rootwait cgroup_memory=1 cgroup_enable=memory"
+
+ SOURCE_MIRROR_URL ?= "file:///workspace/source_mirror/sources/"
+ INHERIT += "own-mirrors" 
+ BB_GENERATE_MIRROR_TARBALLS = "1" 

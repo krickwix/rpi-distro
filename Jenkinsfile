@@ -18,9 +18,11 @@ pipeline {
         stage("build") {
             steps {
                 withEnv(['LANG=C']) {
-                    sh(". setupenv && \
+                    sh("mkdir -p /workspace/source_mirror/sources && \
+                    . setupenv && \
                     MACHINE=raspberrypi4-64 bitbake gbeos-dev && \
-                    MACHINE=raspberrypi3-64 bitbake gbeos-dev")
+                    MACHINE=raspberrypi3-64 bitbake gbeos-dev && \
+                    rsync -av downloads/* /workspace/source_mirror/sources/")
                 }
             }
         }
