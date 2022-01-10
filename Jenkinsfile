@@ -18,7 +18,7 @@ pipeline {
         stage("build") {
             steps {
                 withEnv(['LANG=C']) {
-                    sh("mkdir -p /workspace/source_mirror/sources && \
+                    sh("sudo mkdir -p /workspace/source_mirror/sources && sudo chmod 777 /workspace /workspace/source_mirror/sources && \
                     . setupenv && \
                     MACHINE=raspberrypi4-64 bitbake gbeos-dev && \
                     MACHINE=raspberrypi3-64 bitbake gbeos-dev && \
