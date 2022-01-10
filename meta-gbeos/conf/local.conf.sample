@@ -290,6 +290,6 @@ IMAGE_INSTALL_append += "python3-ansible python3-ansible-core python3-cffi pytho
 
 CMDLINE_ROOTFS ?= "root=/dev/mmcblk0p2 rootfstype=ext4 rootwait cgroup_memory=1 cgroup_enable=memory"
 
- SOURCE_MIRROR_URL ?= "file:///workspace/source_mirror/sources/"
- INHERIT += "own-mirrors" 
- BB_GENERATE_MIRROR_TARBALLS = "1" 
+SOURCE_MIRROR_URL ?= "file:///workspace/source_mirror/sources/"
+INHERIT += "own-mirrors" 
+BB_GENERATE_MIRROR_TARBALLS = "1" 
