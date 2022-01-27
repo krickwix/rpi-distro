@@ -18,11 +18,9 @@ pipeline {
         stage("build") {
             steps {
                 withEnv(['LANG=C']) {
-                    sh("sudo mkdir -p /workspace/source_mirror/sources && sudo chmod 777 /workspace /workspace/source_mirror/sources && \
-                    . setupenv && \
-                    MACHINE=raspberrypi4-64 bitbake gbeos-dev && \
-                    MACHINE=raspberrypi3-64 bitbake gbeos-dev && \
-                    rsync -av downloads/* /workspace/source_mirror/sources/")
+                    sh(". setupenv && \
+                    MACHINE=raspberrypi4-64 bitbake gbeos-minimal && \
+                    MACHINE=raspberrypi3-64 bitbake gbeos-minimal")
                 }
             }
         }
