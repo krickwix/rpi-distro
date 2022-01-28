@@ -1,2 +1,2 @@
-export TEMPLATECONF=$PWD/meta-gbeos/conf
+export TEMPLATECONF=$PWD/meta-greatbear/conf/template-gbeos-rpi
 . poky/oe-init-build-env $*
