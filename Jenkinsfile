@@ -27,11 +27,11 @@ pipeline {
         stage('image') {
             steps {
                 sh(
-                "cd $WORKSPACE/build/tmp/deploy/images/raspberrypi4-64 && \
+                "cd $WORKSPACE/build/tmp_glibc/deploy/images/raspberrypi4-64 && \
                 bmaptool copy --bmap gbeos-dev-raspberrypi4-64.wic.bmap \
                     gbeos-dev-raspberrypi4-64.wic.bz2 \
                     gbeos-dev-raspberrypi4-64.img && \
-                cd $WORKSPACE/build/tmp/deploy/images/raspberrypi3-64 && \
+                cd $WORKSPACE/build/tmp_glibc/deploy/images/raspberrypi3-64 && \
                 bmaptool copy --bmap gbeos-dev-raspberrypi3-64.wic.bmap \
                     gbeos-dev-raspberrypi3-64.wic.bz2 \
                     gbeos-dev-raspberrypi3-64.img"
