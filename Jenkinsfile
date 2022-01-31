@@ -27,17 +27,48 @@ pipeline {
         stage('image') {
             steps {
                 sh(
-                "cd $WORKSPACE/build/tmp_glibc/deploy/images/raspberrypi4-64 && \
+                "cd $WORKSPACE/build/tmp-glibc/deploy/images/raspberrypi4-64 && \
                 bmaptool copy --bmap gbeos-dev-raspberrypi4-64.wic.bmap \
                     gbeos-dev-raspberrypi4-64.wic.bz2 \
                     gbeos-dev-raspberrypi4-64.img && \
-                cd $WORKSPACE/build/tmp_glibc/deploy/images/raspberrypi3-64 && \
+                cd $WORKSPACE/build/tmp-glibc/deploy/images/raspberrypi3-64 && \
                 bmaptool copy --bmap gbeos-dev-raspberrypi3-64.wic.bmap \
                     gbeos-dev-raspberrypi3-64.wic.bz2 \
                     gbeos-dev-raspberrypi3-64.img"
                 )
             }
         }
+        stage("artefacts") {
+            steps {
+                archiveArtifacts artifacts: 'build/tmp-glibc/deploy/images/**/*.img',
+                   allowEmptyArchive: true,
+                   fingerprint: true,
+                   onlyIfSuccessful: true
+                archiveArtifacts artifacts: 'build/tmp-glibc/deploy/images/**/*.wic.bmap',
+                   allowEmptyArchive: true,
+                   fingerprint: true,
+                   onlyIfSuccessful: true
+                archiveArtifacts artifacts: 'build/tmp-glibc/deploy/images/**/*.wic.bz2',
+                   allowEmptyArchive: true,
+                   fingerprint: true,
+                   onlyIfSuccessful: true
+		minio bucket: 'gbear-yocto-images-raspberrypi',
+                   credentialsId: 'minio_gbear-user',
+                   targetFolder: 'jenkins-build/',
+                   host: 'http://10.60.16.240:9199',
+                   includes: 'build/tmp-glibc/deploy/images/**/*.img'
+                minio bucket: 'gbear-yocto-images-raspberrypi',
+                   credentialsId: 'minio_gbear-user',
+                   targetFolder: 'jenkins-build/',
+                   host: 'http://10.60.16.240:9199',
+                   includes: 'build/tmp-glibc/deploy/images/**/*.wic.bmap'
+                minio bucket: 'gbear-yocto-images-raspberrypi',
+                   credentialsId: 'minio_gbear-user',
+                   targetFolder: 'jenkins-build/',
+                   host: 'http://10.60.16.240:9199',
+                   includes: 'build/tmp-glibc/deploy/images/**/*.wic.bz2'
+            }
+        }	
     }
     post {
         // Clean after build
