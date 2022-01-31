@@ -28,13 +28,13 @@ pipeline {
             steps {
                 sh(
                 "cd $WORKSPACE/build/tmp-glibc/deploy/images/raspberrypi4-64 && \
-                bmaptool copy --bmap gbeos-dev-raspberrypi4-64.wic.bmap \
-                    gbeos-dev-raspberrypi4-64.wic.bz2 \
-                    gbeos-dev-raspberrypi4-64.img && \
+                bmaptool copy --bmap gbeos-minimal-raspberrypi4-64.wic.bmap \
+                    gbeos-minimal-raspberrypi4-64.wic.bz2 \
+                    gbeos-minimal-raspberrypi4-64.img && \
                 cd $WORKSPACE/build/tmp-glibc/deploy/images/raspberrypi3-64 && \
-                bmaptool copy --bmap gbeos-dev-raspberrypi3-64.wic.bmap \
-                    gbeos-dev-raspberrypi3-64.wic.bz2 \
-                    gbeos-dev-raspberrypi3-64.img"
+                bmaptool copy --bmap gbeos-minimal-raspberrypi3-64.wic.bmap \
+                    gbeos-minimal-raspberrypi3-64.wic.bz2 \
+                    gbeos-minimal-raspberrypi3-64.img"
                 )
             }
         }
