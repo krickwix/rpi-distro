@@ -1,13 +1,8 @@
 pipeline {
-    agent { label 'yocto'}
+    agent {
+          docker { image 'docker.io/krickwix/ybuild:latest' }
+    }
     stages {
-        stage ('dependencies') {
-            steps {
-                withEnv(['DEBIAN_FRONTEND=noninteractive']) {
-                    sh('sudo apt -y update && sudo apt -y upgrade && sudo apt -y install openjdk-11-jdk build-essential gcc-8 g++-8 git bmap-tools chrpath diffstat zstd')
-                }
-            }
-        }
         stage('scm') {
             steps {
                 withEnv(['LANG=C']) {
@@ -24,20 +19,25 @@ pipeline {
                 }
             }
         }
-        stage('image') {
+        stage('image-rpi3') {
             steps {
                 sh(
-                "cd $WORKSPACE/build/tmp-glibc/deploy/images/raspberrypi4-64 && \
-                bmaptool copy --bmap gbeos-minimal-raspberrypi4-64.wic.bmap \
-                    gbeos-minimal-raspberrypi4-64.wic.bz2 \
-                    gbeos-minimal-raspberrypi4-64.img && \
-                cd $WORKSPACE/build/tmp-glibc/deploy/images/raspberrypi3-64 && \
+                "cd $WORKSPACE/build/tmp-glibc/deploy/images/raspberrypi3-64 && \
                 bmaptool copy --bmap gbeos-minimal-raspberrypi3-64.wic.bmap \
                     gbeos-minimal-raspberrypi3-64.wic.bz2 \
                     gbeos-minimal-raspberrypi3-64.img"
                 )
             }
         }
+	stage('image-rpi4") {
+	    steps {
+                sh(
+                "cd $WORKSPACE/build/tmp-glibc/deploy/images/raspberrypi4-64 && \
+                bmaptool copy --bmap gbeos-minimal-raspberrypi4-64.wic.bmap \
+                    gbeos-minimal-raspberrypi4-64.wic.bz2 \
+                    gbeos-minimal-raspberrypi4-64.img")
+           }
+	}
         stage("artefacts") {
             steps {
                 archiveArtifacts artifacts: 'build/tmp-glibc/deploy/images/**/*.img',
