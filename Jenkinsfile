@@ -29,7 +29,7 @@ pipeline {
                 )
             }
         }
-	stage('image-rpi4") {
+	stage('image-rpi4') {
 	    steps {
                 sh(
                 "cd $WORKSPACE/build/tmp-glibc/deploy/images/raspberrypi4-64 && \
