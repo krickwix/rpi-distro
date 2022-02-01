@@ -1,6 +1,6 @@
 pipeline {
     agent {
-          docker { image 'docker.io/krickwix/ybuild:latest' }
+          docker { image 'docker.io/krickwix/ybuild:v0.1' }
     }
     stages {
         stage('scm') {
